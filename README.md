@@ -1,4 +1,4 @@
-# infinianalytics-tracking
+# infinianalytics-skills
 
 A [Claude Code](https://claude.com/claude-code) skill that instruments an automation with [InfiniAnalytics](https://analytics.infini.es) execution tracking — so every run shows up in the dashboard as a full START → EVENT → END/ERROR timeline. Point Claude Code at a script, Power Automate flow, n8n workflow, or AI agent and ask it to add tracking; the skill supplies the lifecycle contract and the platform-specific wiring so it gets done right the first time, without hand-reading the API docs.
 
@@ -16,30 +16,30 @@ A [Claude Code](https://claude.com/claude-code) skill that instruments an automa
 
 ## Install
 
-Clone this repo directly into a folder Claude Code scans for skills. The destination folder name must stay `infinianalytics-tracking` — it has to match the `name:` declared in `SKILL.md`.
+Clone this repo directly into a folder Claude Code scans for skills. The destination folder name must stay `infinianalytics-skills` — it has to match the `name:` declared in `SKILL.md`.
 
 **Project-only** (available, and shareable via git, just in that repo):
 
 ```bash
-git clone https://github.com/FernandoInfini/infinianalytics-skills.git .claude/skills/infinianalytics-tracking
+git clone https://github.com/InfiniWorkspace/infinianalytics-skills.git .claude/skills/infinianalytics-skills
 ```
 
 **Global** (available in every project on this machine):
 
 ```bash
-git clone https://github.com/FernandoInfini/infinianalytics-skills.git "$HOME/.claude/skills/infinianalytics-tracking"
+git clone https://github.com/InfiniWorkspace/infinianalytics-skills.git "$HOME/.claude/skills/infinianalytics-skills"
 ```
 
 Restart Claude Code (or open a new session) afterwards so it picks up the new skill.
 
 ## Use
 
-Ask naturally — "add InfiniAnalytics tracking to this script" — or invoke it explicitly with `/infinianalytics-tracking`. Claude will ask for your organization token (from the InfiniAnalytics `/organizacion` page) and the automation's UUID, guiding you through creating a Process and Automation first if neither exists yet.
+Ask naturally — "add InfiniAnalytics tracking to this script" — or invoke it explicitly with `/infinianalytics-skills`. Claude will ask for your organization token (from the InfiniAnalytics `/organizacion` page) and the automation's UUID, guiding you through creating a Process and Automation first if neither exists yet.
 
 ## Update
 
 ```bash
-cd .claude/skills/infinianalytics-tracking
+cd .claude/skills/infinianalytics-skills
 git pull
 ```
 

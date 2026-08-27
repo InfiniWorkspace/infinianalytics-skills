@@ -1,5 +1,5 @@
 ---
-name: infinianalytics-tracking
+name: infinianalytics-skills
 description: Wire InfiniAnalytics execution tracking into an automation (Python, REST, Power Automate Desktop/Cloud, n8n, or an AI agent via MCP). Use when the user wants to track, instrument, or monitor an automation with InfiniAnalytics, add lifecycle events (START/EVENT/WARNING/END/ERROR), or debug executions that don't appear in the dashboard.
 ---
 
