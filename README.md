@@ -2,8 +2,6 @@
 
 A [Claude Code](https://claude.com/claude-code) skill that instruments an automation with [InfiniAnalytics](https://analytics.infini.es) execution tracking — so every run shows up in the dashboard as a full START → EVENT → END/ERROR timeline. Point Claude Code at a script, Power Automate flow, n8n workflow, or AI agent and ask it to add tracking; the skill supplies the lifecycle contract and the platform-specific wiring so it gets done right the first time, without hand-reading the API docs.
 
-> This repo is temporary — the URL and structure may change as the skill moves to its permanent home.
-
 ## What's in here
 
 - **`SKILL.md`** — the core playbook: the five-event lifecycle contract, the execution-ID rules, where to get the two credentials (organization token + automation UUID), the integration steps, and a debugging section for events that don't show up.
