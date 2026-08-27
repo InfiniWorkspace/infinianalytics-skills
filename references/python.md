@@ -8,7 +8,7 @@ pip install infinianalytics
 
 ## Initialization
 
-One `InfiniAnalytics` instance per execution, instantiated directly — there is no `init()` step or context manager:
+One `InfiniAnalytics` instance per execution, instantiated directly. There is no `init()` step or context manager:
 
 ```python
 from infinianalytics import InfiniAnalytics
@@ -32,11 +32,11 @@ Called directly on the instance:
 
 | Method | Sends |
 |---|---|
-| `.start(description)` | `START` — once, at the beginning of the run |
-| `.event(description)` | `EVENT` — each progress milestone |
-| `.warning(description)` | `WARNING` — non-critical issue, run continues |
-| `.end(description)` | `END` — once, on successful completion |
-| `.error(description, error_id=None, error_description=None)` | `ERROR` — from the except block; marks the run failed |
+| `.start(description)` | `START`, once, at the beginning of the run |
+| `.event(description)` | `EVENT`, on each progress milestone |
+| `.warning(description)` | `WARNING`, for a non-critical issue, run continues |
+| `.end(description)` | `END`, once, on successful completion |
+| `.error(description, error_id=None, error_description=None)` | `ERROR`, from the except block; marks the run failed |
 
 ## Canonical shape
 
@@ -59,4 +59,4 @@ except Exception as ex:
 
 ## Failure behavior
 
-The SDK never raises. If a call to the InfiniAnalytics API fails (network, bad token), the method prints a message and returns `None` — tracking failures never break the automation, but they are silent except for stdout. Full docs: https://pypi.org/project/infinianalytics/
+The SDK never raises. If a call to the InfiniAnalytics API fails (network, bad token), the method prints a message and returns `None`. Tracking failures never break the automation, but they are silent except for stdout. Full docs: https://pypi.org/project/infinianalytics/

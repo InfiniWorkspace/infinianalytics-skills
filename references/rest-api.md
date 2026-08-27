@@ -2,9 +2,9 @@
 
 Single endpoint for all five event types, callable from any language or platform that can make an HTTP request.
 
-- Base URL: `https://api.analytics.infini.es` — HTTPS only; plain HTTP gets a 301 redirect instead of being processed.
-- `POST /v1/register/` — registers one event. The only endpoint an integration needs.
-- `POST /v1/ping/` — lightweight connectivity/token check.
+- Base URL: `https://api.analytics.infini.es`. HTTPS only; plain HTTP gets a 301 redirect instead of being processed.
+- `POST /v1/register/` registers one event. The only endpoint an integration needs.
+- `POST /v1/ping/` is a lightweight connectivity/token check.
 
 ## Headers
 
@@ -13,7 +13,7 @@ token: your_organization_token
 Content-Type: application/json
 ```
 
-Authentication is this plain `token` header — not `Authorization: Bearer`, no OAuth, no expiry. Missing/invalid token → 401.
+Authentication is this plain `token` header, not `Authorization: Bearer`, no OAuth, no expiry. Missing/invalid token → 401.
 
 ## Request body
 
@@ -61,6 +61,6 @@ Success response is **HTTP 201** with the stored event echoed back:
 | Status | Meaning |
 |---|---|
 | 201 | Event registered |
-| 301 | Request was plain HTTP — retry over HTTPS |
+| 301 | Request used plain HTTP; retry over HTTPS |
 | 401 | `token` header missing or invalid |
-| 5xx | Transient server issue — retry later; contact Infini support if it persists |
+| 5xx | Transient server issue, retry later; contact Infini support if it persists |

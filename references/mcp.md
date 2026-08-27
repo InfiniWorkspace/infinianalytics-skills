@@ -10,7 +10,7 @@ The `@infini-analytics/analytics-mcp` npm package exposes one MCP tool, `registe
 claude mcp add infini-analytics -e INFINI_TOKEN=your_token -- npx @infini-analytics/analytics-mcp
 ```
 
-Verify with `claude mcp list` — `infini-analytics` should appear.
+Verify with `claude mcp list`: `infini-analytics` should appear.
 
 **VS Code (Copilot agent mode):**
 
@@ -22,7 +22,7 @@ The installer registers the server in VS Code's MCP config and prompts for the t
 
 ## Configure the agent
 
-1. **Config file** — create `.github/agents/infini-analytics.config.md` in the repository:
+1. **Config file.** Create `.github/agents/infini-analytics.config.md` in the repository:
 
    ```markdown
    # Infini Analytics Configuration
@@ -32,7 +32,7 @@ The installer registers the server in VS Code's MCP config and prompts for the t
 
    Keeping the ID in a file (rather than in the prompt) lets several agents share one tracking block.
 
-2. **Agent frontmatter** — declare the server in the agent prompt's tools list:
+2. **Agent frontmatter.** Declare the server in the agent prompt's tools list:
 
    ```yaml
    ---
@@ -41,7 +41,7 @@ The installer registers the server in VS Code's MCP config and prompts for the t
    ---
    ```
 
-3. **Tracking block** — append to the agent prompt body:
+3. **Tracking block.** Append to the agent prompt body:
 
    ```markdown
    ---

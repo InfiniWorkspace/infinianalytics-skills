@@ -1,6 +1,6 @@
 # Power Automate (Desktop and Cloud)
 
-Both use official Infini templates — no code, the user imports a package and calls prebuilt subflows/child flows. Your job is telling the user where each call goes in their flow and which variables to set.
+Both use official Infini templates: no code. The user imports a package and calls prebuilt subflows or child flows. Your job is telling the user where each call goes in their flow and which variables to set.
 
 ## Power Automate Desktop (PAD)
 
