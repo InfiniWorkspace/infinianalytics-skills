@@ -16,10 +16,10 @@ Every integration, whatever the platform, sends the same five event types for ea
 | `START` | The very first thing the run does | Exactly one per run |
 | `EVENT` | Each meaningful milestone ("File downloaded", "50 rows processed") | As many as useful |
 | `WARNING` | A non-critical issue worth reviewing, without failing the run | As needed |
-| `END` | Successful completion, the last thing the run does | One, or `ERROR`, never both |
-| `ERROR` | Failure, from the error handler; marks the execution as failed | Replaces `END` |
+| `END` | Successful completion, the last thing the run does | Exactly one, and always the last event sent |
+| `ERROR` | Failure, from the error handler; marks the execution as failed | As needed; a recoverable one can be followed by more `EVENT`/`WARNING` and a closing `END` |
 
-A well-formed run is `START` → (`EVENT`/`WARNING`)* → `END` or `ERROR`. InfiniAnalytics takes the `START` timestamp as the execution start, the `END`/`ERROR` timestamp as the end, and computes duration and outcome from them. Events sent after `END`/`ERROR` are accepted but do not change the outcome.
+A well-formed run is `START` → (`EVENT`/`WARNING`/`ERROR`)* → `END`, or it ends on an `ERROR` that turns out to be unrecoverable. `END` is strictly terminal: once sent, nothing else should follow it. `ERROR` is not necessarily terminal: a caught, non-fatal failure can be logged as `ERROR` and the run can keep going, closing later with its own `END`. What must never happen is a run that starts and never reaches a terminal event: every initiated execution has to finish in an `ERROR` or an `END`, and the automation's code must never crash unhandled — wrap it so any failure is caught and reported as an `ERROR` before the process exits.
 
 **The execution ID is the correlation key.** The user's side generates it (a UUID v4 or an ISO 8601 timestamp both work). InfiniAnalytics never assigns one. Every event of the same run must carry the same ID; all events sharing an ID are stitched into one execution record. It must be unique per run: reusing an ID across runs merges them into one record, and it must not collide with a concurrent run. Multi-technology workflows (e.g. a Power Automate flow calling a Python script) may share one ID across technologies to appear as a single execution.
 
@@ -42,7 +42,7 @@ A well-formed run is `START` → (`EVENT`/`WARNING`)* → `END` or `ERROR`. Infi
    - n8n workflow → [references/n8n.md](references/n8n.md)
    - AI coding agent (Claude Code, VS Code Copilot agent mode) → [references/mcp.md](references/mcp.md) (MCP server)
 
-   Then place the calls so that **every exit path of the automation emits `END` or `ERROR`**: the happy path ends with `END`, and each error handler (except block, error branch, error scope, global handler) emits `ERROR` with `error_id` and `error_description` filled from the caught failure. Generate the execution ID once at the top of the run and thread it through every call.
+   Then place the calls so that **every exit path of the automation emits `END` or `ERROR`**: the happy path ends with `END`, and each error handler (except block, error branch, error scope, global handler) emits `ERROR`. Never leave a path where an exception can escape uncaught — if there's an outermost scope or global handler, wire it too, so a started run always reaches `ERROR` or `END` and the code never simply crashes. Fill the error fields from the caught failure: `description` is a plain, human-readable explanation of the error and what most likely caused it; `error_id` is a short identifier for that specific error case, easy to search later (e.g. `ERR-01`, `ERR-02`, or an existing error code/exception name already in the code); `error_description` is the exhaustive detail — the programming language's own exception message/stack trace when there is one, or as much diagnostic detail as can be gathered otherwise. Generate the execution ID once at the top of the run and thread it through every call.
 
 4. **Verify.** The integration is done when a real (or test) run produces a complete execution in the dashboard:
    - Trigger one run end to end (or, for flows the user must run by hand, have them trigger it).

@@ -22,9 +22,9 @@ Authentication is this plain `token` header, not `Authorization: Bearer`, no OAu
 | `automation_id` | Yes | Automation UUID from the dashboard |
 | `execution_id` | Yes | Caller-generated run ID, identical across all events of the run |
 | `event` | Yes | `START`, `EVENT`, `WARNING`, `END`, or `ERROR` |
-| `description` | No | Free text describing the event |
-| `error_id` | No | Error identifier; only meaningful with `ERROR` |
-| `error_description` | No | Detailed error message (e.g. exception text); only meaningful with `ERROR` |
+| `description` | No | Free text describing the event; for `ERROR`, a human-readable explanation of the error and its likely cause |
+| `error_id` | No | Only meaningful with `ERROR`. A short, searchable identifier for that error case, e.g. `ERR-01`, `ERR-02`, or an existing error code/exception name from the code |
+| `error_description` | No | Only meaningful with `ERROR`. Exhaustive detail: the programming language's own exception message/stack trace when there is one, otherwise as much diagnostic detail as available |
 
 ## Example
 

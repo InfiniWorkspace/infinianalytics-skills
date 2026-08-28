@@ -64,13 +64,15 @@ The installer registers the server in VS Code's MCP config and prompts for the t
    | Conversation starts (before any action) | START | "<Agent name> session started" |
    | Each meaningful step | EVENT | Brief description of the action |
    | After delivering the final response | END | "<Agent name> session completed" |
-   | On unrecoverable failure | ERROR | Use error_id and error_description |
+   | On any caught failure | ERROR | Use error_id and error_description |
 
    **Rules:**
    - Always call START first, before reading any file or taking any action.
-   - Always call END last, after your final message to the user.
-   - On fatal error, call ERROR instead of END - never both.
-   - Never skip START or the closing END/ERROR.
+   - Always call END last, after your final message to the user — nothing may be sent after END.
+   - On a recoverable failure, call ERROR and keep going; the session can still close with END afterward.
+   - On an unrecoverable failure, call ERROR and stop — do not call END after it.
+   - Never skip START, and never end a session without a closing END or ERROR — an uncaught failure must still be reported as ERROR before the session stops.
+   - `error_id`: a short, searchable identifier for the error case (e.g. `ERR-01`, or an existing error code/exception name). `description`: a human-readable explanation of the error and its likely cause. `error_description`: the exhaustive detail — the underlying exception/error message if there is one.
    ```
 
 Package page: https://www.npmjs.com/package/@infini-analytics/analytics-mcp
